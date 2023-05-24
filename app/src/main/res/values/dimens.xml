@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="rounded_buttons_radius">25dp</dimen>
+
+    <dimen name="indicator_radius">46dp</dimen>
+    <dimen name="indicator_margin">8dp</dimen>
+
+    <dimen name="tab_indicator_height">4dp</dimen>
+
+    <dimen name="menu_icon_size">55dp</dimen>
+    <dimen name="menu_space_size">60dp</dimen>
+    <dimen name="margin_menu_item_selected">20dp</dimen>
+    <dimen name="margin_menu_item_not_selected">9dp</dimen>
+
+    <dimen name="item_service_radius">4.8dp</dimen>
+    <dimen name="item_service_padding">4dp</dimen>
+    <dimen name="item_service_size">80dp</dimen>
+
+    <dimen name="card_elevation">15dp</dimen>
+    <dimen name="card_corner_radius">10dp</dimen>
+
+    <dimen name="dialog_margin">24dp</dimen>
+    <dimen name="assistance_button_collapsed_width">62dp</dimen>
+
+</resources>
