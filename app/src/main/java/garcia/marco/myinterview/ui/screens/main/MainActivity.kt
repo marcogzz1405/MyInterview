@@ -55,15 +55,17 @@ class MainActivity : BaseActivity() {
 
             lifecycleScope.launchWhenResumed {
                 svName.onQueryTextListener.collect { query ->
-                    val getListFilter = if (query.isNotEmpty()) {
+                    adapter?.filter?.filter(query)
+                    /*val getListFilter = if (query.isNotEmpty()) {
                         getListResponse?.filter {
+                            Log.d("MainActivity", "query: $query")
                             it.nombre == query
                         }
                     } else {
                         getListResponse
                     }
-                    Log.d("MainActivity", "FilterList: ${getListFilter}")
-                    updateGetListUI(getListFilter as MutableList<GetListResponse>)
+                    Log.d("MainActivity", "FilterList: ${getListFilter}")*/
+                    //updateGetListUI(getListFilter as MutableList<GetListResponse>)
                 }
             }
 
