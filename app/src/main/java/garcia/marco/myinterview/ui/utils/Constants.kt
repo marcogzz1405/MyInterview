@@ -5,4 +5,5 @@ object Constants {
     const val ASSISTANCE_DELAY = 5000L
 
     const val INITIAL_OFFSET = 1
+    const val INITIAL_LIMIT = 20
 }

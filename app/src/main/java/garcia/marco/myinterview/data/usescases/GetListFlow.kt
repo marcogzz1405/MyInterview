@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class GetListFlow @Inject constructor(private val repository: GetListRepository) {
 
-    suspend operator fun invoke(offset: Int): Flow<OperationResult<GetListResponse>> = flow {
+    suspend operator fun invoke(offset: Int): Flow<OperationResult<MutableList<GetListResponse>>> = flow {
         try {
             val response = repository.getList(offset)
             emit(OperationResult.Success(response))

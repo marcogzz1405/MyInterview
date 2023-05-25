@@ -2,4 +2,26 @@
     <string name="app_name">MyInterview</string>
 
     <string name="add_user">Nuevo usuario</string>
+    <string name="txt_unknown_error">¡Lo sentimos! Por el momento, este servicio no está disponible. Favor de intentar más tarde.</string>
+
+    <string name="search_by_name">Buscar por nombre</string>
+    <string name="register_new_user">Registrar nuevo usuario</string>
+
+    <string name="hint_name">Nombre(s)*</string>
+    <string name="hint_last_name_1">Apellido Paterno*</string>
+    <string name="hint_last_name_2">Apellido Materno*</string>
+    <string name="hint_email">Email*</string>
+    <string name="hint_birthdate">Fecha de nacimiento</string>
+    <string name="hint_year">YYYY</string>
+    <string name="hint_month">MM</string>
+    <string name="hint_day">DD</string>
+    <string name="hint_street">Calle*</string>
+    <string name="hint_number">Número</string>
+    <string name="hint_cp">Código Postal</string>
+    <string name="hint_cologne">Colonia*</string>
+    <string name="hint_delegation">Delegación/Municipio*</string>
+    <string name="hint_state">Estado*</string>
+    <string name="b_save">Guardar</string>
+    <string name="lbl_accept">Aceptar</string>
+
 </resources>

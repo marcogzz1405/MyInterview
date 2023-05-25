@@ -12,6 +12,9 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import garcia.marco.myinterview.domain.exceptions.ApiException
+import garcia.marco.myinterview.ui.custom.ErrorManager
+import garcia.marco.myinterview.ui.custom.InterviewLoader
 import garcia.marco.myinterview.ui.screens.main.MainActivity
 import garcia.marco.myinterview.ui.screens.user.AddUserActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,6 +28,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loader = InterviewLoader.instance(this)
         createView()
         collectFlows()
     }
@@ -36,6 +40,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun createView()
     abstract fun collectFlows()
+
+    protected open fun showError(t : Throwable) {
+        when(t) {
+            is ApiException -> ErrorManager.showMessage(context = this, _message = t.uiMessage)
+            else -> ErrorManager.showMessage(context = this)
+        }
+    }
 
     @ExperimentalCoroutinesApi
     fun goToMainActivity() {

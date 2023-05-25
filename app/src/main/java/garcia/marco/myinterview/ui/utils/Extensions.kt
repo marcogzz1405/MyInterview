@@ -2,12 +2,17 @@ package garcia.marco.myinterview.ui.utils
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+
+fun encodeBase64(value: String): String {
+    return Base64.encodeToString(value.toByteArray(), Base64.DEFAULT).replace("\n", "")
+}
 
 @ExperimentalCoroutinesApi
 val EditText.onTextChangeEvents : Flow<CharSequence>

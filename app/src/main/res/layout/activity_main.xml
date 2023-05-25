@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textCursorDrawable="@null"
         android:layout_marginTop="5dp"
-        app:queryHint="Buscar por nombre"
+        app:queryHint="@string/search_by_name"
         app:iconifiedByDefault="false"
         android:background="@drawable/btn_main_bar"
         app:queryBackground="@null"
