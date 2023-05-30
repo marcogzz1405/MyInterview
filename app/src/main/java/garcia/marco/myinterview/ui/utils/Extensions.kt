@@ -1,5 +1,7 @@
 package garcia.marco.myinterview.ui.utils
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Base64
@@ -48,4 +50,14 @@ val SearchView.onQueryTextListener: Flow<CharSequence> get() = callbackFlow {
     }
     setOnQueryTextListener(callback)
     awaitClose { removeCallbacks(null) }
+}
+
+fun base64ToImage(base64String: String): Bitmap? {
+    try {
+        val decodedImageBytes: ByteArray = Base64.decode(base64String, Base64.DEFAULT)
+        val bitmap = BitmapFactory.decodeByteArray(decodedImageBytes, 0, decodedImageBytes.size)
+        return bitmap
+    } catch (ex: java.lang.Exception) {
+        return null
+    }
 }
