@@ -9,8 +9,10 @@ import android.widget.BaseAdapter
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import garcia.marco.myinterview.R
 import garcia.marco.myinterview.data.remote.response.GetListResponse
 import garcia.marco.myinterview.databinding.ItemListBinding
+import garcia.marco.myinterview.ui.utils.base64ToImage
 
 class GetListAdapter(private val items: MutableList<GetListResponse>): RecyclerView.Adapter<GetListAdapter.ViewHolder>(), Filterable {
 
@@ -23,6 +25,12 @@ class GetListAdapter(private val items: MutableList<GetListResponse>): RecyclerV
     class ViewHolder(val binding: ItemListBinding, val context: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: GetListResponse) {
             with(binding) {
+                val bitmap = base64ToImage(item.datos.imagen.toString())
+                if (bitmap != null) {
+                    ivList.setImageBitmap(bitmap)
+                } else {
+                    ivList.setImageResource(R.drawable.icon_splash)
+                }
                 tvName.text = item.nombre
                 tvLastName.text = "${item.apellidoPaterno} ${item.apellidoMaterno}"
                 tvBirthdate.text = item.fechaNac
