@@ -12,8 +12,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import com.fasterxml.jackson.databind.ObjectMapper
 import dagger.hilt.android.AndroidEntryPoint
+import garcia.marco.myinterview.BuildConfig
 import garcia.marco.myinterview.data.remote.request.AddUserRequest
 import garcia.marco.myinterview.data.remote.request.Datos
 import garcia.marco.myinterview.databinding.ActivityAddUserBinding
@@ -83,21 +87,7 @@ class AddUserActivity : BaseActivity() {
                 }
 
                 launchWhenResumed {
-                    tietYear.onTextChangeEvents.collect {
-                        filterData()
-                    }
-                }
-
-                launchWhenResumed {
-                    tietMonth.onTextChangeEvents.collect {
-                        filterData()
-                    }
-                }
-
-                launchWhenResumed {
-                    tietDay.onTextChangeEvents.collect {
-                        filterData()
-                    }
+                    tietBirthdate.setOnClickListener { showDatePickerDialog() }
                 }
 
                 launchWhenResumed {
@@ -138,7 +128,7 @@ class AddUserActivity : BaseActivity() {
 
                 launchWhenResumed {
                     bSave.setOnClickListener {
-                        val age = viewModel.getAge("${tietDay.text}/${tietMonth.text}/${tietYear.text}")
+                        val age = viewModel.getAge(tietBirthdate.text.toString())
                         val image = viewModel.encodeBase64(photo)
                         val datos = Datos(
                             tietStreet.text.toString(),
@@ -157,7 +147,7 @@ class AddUserActivity : BaseActivity() {
                             tietLastName2.text.toString(),
                             age,
                             tietEmail.text.toString(),
-                            "${tietYear.text}/${tietMonth.text}/${tietDay.text}",
+                            tietBirthdate.text.toString(),
                             data
                         )
                         Log.d("AddUserActivity", "User: $user")
@@ -236,8 +226,8 @@ class AddUserActivity : BaseActivity() {
             // No se tomo la foto
         } else {
             val bitmap = result.data?.extras?.get("data") as Bitmap
-            photo = bitmap
-            binding.ivTakePicture.setImageBitmap(bitmap)
+            val uri = viewModel.getImageUri(this, bitmap)
+            startCrop(uri)
         }
     }
 
@@ -249,7 +239,7 @@ class AddUserActivity : BaseActivity() {
             title,
             "Imageof$title"
         )
-
+        Log.d("AddUserActivity", "saveImage: ${Uri.parse(savedImageURL)}")
         // Parse the gallery image url to uri
         return Uri.parse(savedImageURL)
     }
@@ -259,46 +249,70 @@ class AddUserActivity : BaseActivity() {
     }
 
     private fun checkFields(): Boolean {
-        if (binding.tietName.text.toString().isEmpty()) {
+        if (binding.tietName.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietLastName1.text.toString().isEmpty()) {
+        if (binding.tietLastName1.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietLastName2.text.toString().isEmpty()) {
+        if (binding.tietLastName2.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietEmail.text.toString().isEmpty()) {
+        if (binding.tietEmail.text?.trim()?.isEmpty() == true || !viewModel.validarEmail(binding.tietEmail.text.toString())) {
             return false
         }
-        if (binding.tietYear.text.toString().isEmpty()) {
+        if (binding.tietBirthdate.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietMonth.text.toString().isEmpty()) {
+        if (binding.tietStreet.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietDay.text.toString().isEmpty()) {
+        if (binding.tietNumber.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietStreet.text.toString().isEmpty()) {
+        if (binding.tietCp.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietNumber.text.toString().isEmpty()) {
+        if (binding.tietCologne.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietCp.text.toString().isEmpty()) {
+        if (binding.tietDelegation.text?.trim()?.isEmpty() == true) {
             return false
         }
-        if (binding.tietCologne.text.toString().isEmpty()) {
-            return false
-        }
-        if (binding.tietDelegation.text.toString().isEmpty()) {
-            return false
-        }
-        if (binding.tietState.text.toString().isEmpty()) {
+        if (binding.tietState.text?.trim()?.isEmpty() == true) {
             return false
         }
         return true
+    }
+
+    private fun showDatePickerDialog(){
+        val datePicker = DatePickerFragment { birthdate ->
+            binding.tietBirthdate.setText(birthdate)
+        }
+        datePicker.show(supportFragmentManager, "datePicker")
+    }
+
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            // Use the returned uri.
+            val uriContent = result.uriContent
+            val uriFilePath = result.getUriFilePath(this) // optional usage
+            val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uriContent)
+            saveImage(bitmap, BuildConfig.APPLICATION_ID)
+            binding.ivTakePicture.setImageURI(uriContent)
+        } else {
+            // An error occurred.
+            val exception = result.error
+        }
+    }
+
+    private fun startCrop(imageUri: Uri?) {
+        cropImage.launch(
+            CropImageContractOptions(
+                uri = imageUri,
+                cropImageOptions = CropImageOptions(),
+            ),
+        )
     }
 
 }

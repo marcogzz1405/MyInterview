@@ -203,128 +203,39 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_birthdate"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_birthdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:textColorHint="@color/cool_grey"
+                    android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
                     app:layout_constraintTop_toBottomOf="@id/til_email">
 
-                    <TextView
-                        android:id="@+id/tv_birthdate"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_margin="10dp"
-                        android:text="@string/hint_birthdate"
-                        android:textAlignment="center"
-                        android:textColor="@color/red_200"
-                        android:textSize="18sp"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_birthdate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_year"
-                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="10dp"
+                        android:drawablePadding="10dp"
+                        android:ellipsize="end"
+                        android:tag="sensitive"
+                        android:backgroundTint="@color/grayTextColor"
+                        android:hint="@string/hint_birthdate"
+                        android:imeOptions="actionNext"
+                        android:inputType="date"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:maxLines="1"
+                        android:padding="16dp"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/cool_grey"
-                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/til_month"
-                        app:layout_constraintTop_toBottomOf="@id/tv_birthdate">
+                        android:textSize="14sp"/>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiet_year"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:tag="sensitive"
-                            android:backgroundTint="@color/grayTextColor"
-                            android:hint="@string/hint_year"
-                            android:imeOptions="actionNext"
-                            android:inputType="number"
-                            android:maxLength="4"
-                            android:padding="16dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/cool_grey"
-                            android:textSize="14sp"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_month"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="10dp"
-                        android:textColorHint="@color/cool_grey"
-                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-                        app:layout_constraintStart_toEndOf="@id/til_year"
-                        app:layout_constraintEnd_toStartOf="@id/til_day"
-                        app:layout_constraintTop_toBottomOf="@id/tv_birthdate">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiet_month"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:tag="sensitive"
-                            android:backgroundTint="@color/grayTextColor"
-                            android:hint="@string/hint_month"
-                            android:imeOptions="actionNext"
-                            android:inputType="number"
-                            android:maxLength="2"
-                            android:padding="16dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/cool_grey"
-                            android:textSize="14sp"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_day"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="10dp"
-                        android:textColorHint="@color/cool_grey"
-                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/til_month"
-                        app:layout_constraintTop_toBottomOf="@id/tv_birthdate">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiet_day"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="10dp"
-                            android:ellipsize="end"
-                            android:tag="sensitive"
-                            android:backgroundTint="@color/grayTextColor"
-                            android:hint="@string/hint_day"
-                            android:imeOptions="actionNext"
-                            android:inputType="number"
-                            android:maxLength="2"
-                            android:padding="16dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/cool_grey"
-                            android:textSize="14sp"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_street"
@@ -337,7 +248,7 @@
                     android:layout_marginTop="20dp"
                     android:textColorHint="@color/cool_grey"
                     android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-                    app:layout_constraintTop_toBottomOf="@id/cl_birthdate">
+                    app:layout_constraintTop_toBottomOf="@id/til_birthdate">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiet_street"

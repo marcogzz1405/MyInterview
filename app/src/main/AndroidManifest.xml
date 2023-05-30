@@ -47,7 +47,10 @@
         <activity
             android:name=".ui.screens.main.MainActivity"
             android:exported="true" />
-
+        <activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"
+            />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="garcia.marco.myinterview.fileProvider"
