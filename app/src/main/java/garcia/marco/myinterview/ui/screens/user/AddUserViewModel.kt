@@ -4,9 +4,11 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.net.Uri
 import android.os.Build
-import android.os.Environment
+import android.provider.MediaStore
 import android.util.Base64
+import android.util.Patterns
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import garcia.marco.myinterview.data.remote.request.AddUserRequest
 import garcia.marco.myinterview.data.remote.response.AddUserResponse
 import garcia.marco.myinterview.data.usescases.AddUserFlow
-import garcia.marco.myinterview.data.usescases.GetListFlow
 import garcia.marco.myinterview.domain.OperationResult
-import garcia.marco.myinterview.ui.screens.main.MainUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -25,6 +25,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 
@@ -48,7 +49,7 @@ class AddUserViewModel @Inject constructor(private val addUserFlow: AddUserFlow)
     }
 
     fun getAge(birthdate: String): Int{
-        val format = SimpleDateFormat("dd/MM/yyyy")
+        val format = SimpleDateFormat("YYYY/MM/DD")
         val dateBirth = format.parse(birthdate)
         val date = Date(System.currentTimeMillis())
         val dif = date.time - dateBirth.time
@@ -89,6 +90,23 @@ class AddUserViewModel @Inject constructor(private val addUserFlow: AddUserFlow)
             }
         }
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
+    fun validarEmail(email: String): Boolean {
+        val pattern: Pattern = Patterns.EMAIL_ADDRESS
+        return pattern.matcher(email).matches()
+    }
+
+    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            inContext.getContentResolver(),
+            inImage,
+            "Title",
+            null
+        )
+        return Uri.parse(path)
     }
 
 }

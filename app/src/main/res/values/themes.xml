@@ -44,4 +44,12 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="DatePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/red_200</item>                   <!--header background-->
+        <item name="android:windowBackground">@color/transparent</item>     <!--calendar background-->
+        <item name="android:colorControlActivated">@color/red_200</item> <!--selected day-->
+        <item name="android:textColorPrimary">@color/black</item> <!--days of the month-->
+        <item name="android:textColorSecondary">@color/black</item>
+    </style>
+
 </resources>
